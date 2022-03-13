@@ -39,7 +39,7 @@ terminal   	       EQ, LT, LE, GT, GE, NE; // num_rel
 terminal    	   STREQ, STRNOTEQ; //str_rel
 
 terminal           SEMI, COMMA, PLUS, MINUS, TIMES, DIVIDE, MODE, LPAREN, RPAREN;
-terminal Integer   NUM;
+terminal Double   NUM;
 terminal String    IDENT;
 terminal String    STRING;
 
@@ -91,7 +91,7 @@ expr ::= IDENT:i            {: RESULT = new ID(i); :}
 
 num_expr ::=  NUM:e
                 {:
-                    RESULT = new IntExpression(e.intValue());
+                    RESULT = new IntExpression(e.doubleValue());
                 :}
             | READINT
                  {:

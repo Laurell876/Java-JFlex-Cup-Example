@@ -3,7 +3,7 @@ import java.util.*;
 
 interface Expr { Object run(HashMap<String, Object> hm); }
 interface Condition { boolean test(Expr e1, Expr e2, HashMap<String, Object> hm); }
-interface Operator { int count(Expr e1, Expr e2, HashMap<String, Object> hm); }
+interface Operator { Double count(Expr e1, Expr e2, HashMap<String, Object> hm); }
 
 interface SimpleInstruction { void run(HashMap<String,Object> hm); }
 
@@ -73,87 +73,87 @@ class AssignInstruction implements SimpleInstruction
 /** OPERATORS */
 class PlusOperator implements Operator {
 
-	public int count(Expr e1, Expr e2, HashMap<String, Object> hm) {
+	public Double count(Expr e1, Expr e2, HashMap<String, Object> hm) {
 
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
 
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			return (Integer)v1 + (Integer)v2;
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return (Double)v1 + (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
-			return 0;
+			return 0.0;
 		}
 	}
 }
 
 class TimesOperator implements Operator {
 
-	public int count(Expr e1, Expr e2, HashMap<String, Object> hm) {
+	public Double count(Expr e1, Expr e2, HashMap<String, Object> hm) {
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			return (Integer)v1 * (Integer)v2;
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return (Double)v1 * (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
-			return 0;
+			return 0.0;
 		}
 	}
 }
 
 class MinusOperator implements Operator {
 
-	public int count(Expr e1, Expr e2, HashMap<String, Object> hm) {
+	public Double count(Expr e1, Expr e2, HashMap<String, Object> hm) {
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			return (Integer)v1 - (Integer)v2;
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return (Double)v1 - (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
-			return 0;
+			return 0.0;
 		}
 	}
 }
 
 class DivideOperator implements Operator {
 
-	public int count(Expr e1, Expr e2, HashMap<String, Object> hm) {
+	public Double count(Expr e1, Expr e2, HashMap<String, Object> hm) {
 
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			if ((Integer)v2 == 0) {
+		if (v1 instanceof Double && v2 instanceof Double) {
+			if ((Double)v2 == 0) {
 				System.out.println("Error: division by zero");
 				System.exit(1);
 			}
-			return (Integer)v1 / (Integer)v2;
+			return (Double)v1 / (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
-			return 0;
+			return 0.0;
 		}
 	}
 }
 
 class ModeOperator implements Operator {
 
-	public int count(Expr e1, Expr e2, HashMap<String, Object> hm) {
+	public Double count(Expr e1, Expr e2, HashMap<String, Object> hm) {
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
 
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			if ((Integer)v2 == 0) {
+		if (v1 instanceof Double && v2 instanceof Double) {
+			if ((Double)v2 == 0) {
 				System.out.println("Error: division by zero");
 				System.exit(1);
 			}
-			return (Integer)v1 % (Integer)v2;
+			return (Double)v1 % (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
-			return 0;
+			return 0.0;
 		}
 	}
 }
@@ -176,12 +176,12 @@ class OperatorExpression implements Expr {
 	}
 }
 
-/** INT OPERATIONS */
+/** Double OPERATIONS */
 class IntExpression implements Expr
 {
-	int value;
+	Double value;
 
-	public IntExpression(int e)
+	public IntExpression(Double e)
 	{
 		value = e;
 	}
@@ -227,12 +227,12 @@ class UMinusExpression implements Expr
 	public Object run(HashMap<String, Object> hm) {
 
 		Object v = e.run(hm);
-		if (v instanceof Integer) {
-			return -((Integer)v);
+		if (v instanceof Double) {
+			return -((Double)v);
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
-			return 0;
+			return 0.0;
 		}
 	}
 
@@ -254,7 +254,7 @@ class STRLengthExpression implements Expr
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
-			return 0;
+			return 0.0;
 		}
 
 	}
@@ -279,12 +279,12 @@ class STRPositionExpression implements Expr
 			String s = (String)v1;
 			String s2 = (String)v2;
 
-			int pos = s.indexOf(s2);
+			Double pos = Double.valueOf(s.indexOf(s2));
 			return (pos != -1) ? pos + 1 : 0;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
-			return 0;
+			return 0.0;
 		}
 	}
 
@@ -298,8 +298,8 @@ class EqCond implements Condition
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
 
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			return (Integer)v1 == (Integer)v2;
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return (Double)v1 == (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
@@ -316,8 +316,8 @@ class LtCond implements Condition
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
 
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			return (Integer)v1 < (Integer)v2;
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return (Double)v1 < (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
@@ -333,8 +333,8 @@ class LeCond implements Condition
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
 
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			return (Integer)v1 <= (Integer)v2;
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return (Double)v1 <= (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
@@ -350,8 +350,8 @@ class GtCond implements Condition
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
 
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			return (Integer)v1 > (Integer)v2;
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return (Double)v1 > (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
@@ -367,8 +367,8 @@ class GeCond implements Condition
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
 
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			return (Integer)v1 >= (Integer)v2;
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return (Double)v1 >= (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
@@ -384,8 +384,8 @@ class NeCond implements Condition
 		Object v1 = e1.run(hm);
 		Object v2 = e2.run(hm);
 
-		if (v1 instanceof Integer && v2 instanceof Integer) {
-			return (Integer)v1 != (Integer)v2;
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return (Double)v1 != (Double)v2;
 		} else {
 			System.out.println("Error: wrong objects type");
 			System.exit(1);
@@ -593,10 +593,10 @@ class SubStringExpression implements Expr
 		Object v2 = posExpr.run(hm);
 		Object v3 = lengthExpr.run(hm);
 
-		if (v1 instanceof String && v2 instanceof Integer && v3 instanceof Integer) {
+		if (v1 instanceof String && v2 instanceof Double && v3 instanceof Double) {
 			String s = (String)v1;
-			int pos = (Integer)v2;
-			int length = (Integer)v3;
+			Integer pos = (Integer)v2;
+			Integer length = (Integer)v3;
 
 			if (pos + length - 1 > s.length()) {
 				length = s.length() - pos + 1;

@@ -22,8 +22,10 @@ import java_cup.runtime.*;
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = {LineTerminator} | [ \t\f]
-
-NUM = [0-9]+
+Digit = [0-9]
+Integer = 0|[1-9]{Digit}*
+Float = {Integer}(\.{Digit}*)?
+NUM = {Integer} | {Float}
 IDENT = [A-Za-z_][A-Za-z_0-9]*
 STRING = \"([^\\\"]|\\.)*\"
 
@@ -76,7 +78,7 @@ STRING = \"([^\\\"]|\\.)*\"
     "%"                { return symbol(sym.MODE);  }
     "/"                { return symbol(sym.DIVIDE); }
    
-    {NUM}      { return symbol(sym.NUM, new Integer(yytext())); }
+    {NUM}      { return symbol(sym.NUM, new Double(yytext())); }
     {IDENT}       { return symbol(sym.IDENT, new String(yytext()));}
     {STRING}      { return symbol(sym.STRING, new String(yytext())); }
 
