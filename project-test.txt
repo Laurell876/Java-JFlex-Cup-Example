@@ -1,0 +1,4 @@
+begin
+	base := 1.5;
+    print(base)
+end
