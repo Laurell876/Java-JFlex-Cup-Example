@@ -71,6 +71,24 @@ class AssignInstruction implements SimpleInstruction
 
 
 /** OPERATORS */
+
+class PowerOperator implements Operator {
+
+	public Double count(Expr e1, Expr e2, HashMap<String, Object> hm) {
+
+		Object v1 = e1.run(hm);
+		Object v2 = e2.run(hm);
+
+		if (v1 instanceof Double && v2 instanceof Double) {
+			return Math.pow((Double)v1, (Double)v2);
+		} else {
+			System.out.println("Error: wrong objects type");
+			System.exit(1);
+			return 0.0;
+		}
+	}
+}
+
 class PlusOperator implements Operator {
 
 	public Double count(Expr e1, Expr e2, HashMap<String, Object> hm) {
@@ -87,6 +105,7 @@ class PlusOperator implements Operator {
 		}
 	}
 }
+
 
 class TimesOperator implements Operator {
 

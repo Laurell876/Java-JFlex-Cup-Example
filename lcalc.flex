@@ -77,7 +77,8 @@ STRING = \"([^\\\"]|\\.)*\"
     "*"                { return symbol(sym.TIMES); }
     "%"                { return symbol(sym.MODE);  }
     "/"                { return symbol(sym.DIVIDE); }
-   
+    "^"                {return symbol(sym.NEW);}
+ 
     {NUM}      { return symbol(sym.NUM, new Double(yytext())); }
     {IDENT}       { return symbol(sym.IDENT, new String(yytext()));}
     {STRING}      { return symbol(sym.STRING, new String(yytext())); }
