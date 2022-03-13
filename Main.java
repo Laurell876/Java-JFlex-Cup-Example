@@ -565,13 +565,7 @@ class ConcatStringExpression implements Expr
 		Object v1 = s.run(hm);
 		Object v2 = s2.run(hm);
 
-		if (v1 instanceof String && v2 instanceof String) {
-			return (String)v1 + (String)v2;
-		} else {
-			System.out.println("Error: wrong objects type");
-			System.exit(1);
-			return null;
-		}
+		return String.valueOf(v1) + String.valueOf(v2);
 	}
 }
 

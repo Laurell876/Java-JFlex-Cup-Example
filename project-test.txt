@@ -1,8 +1,6 @@
-begin
-	base = 3;
-	height = 14.5;
-	area = 0.5 * base * height;
-    message = "area is";
-    print(message);
-    print(area)
-end
+base = 3;
+height = 14.5;
+area = 0.5 * base * height;
+messagePrefix = concatenate("area is", " ");
+message = concatenate(messagePrefix, area);
+print(message)
