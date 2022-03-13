@@ -57,8 +57,8 @@ STRING = \"([^\\\"]|\\.)*\"
     "concatenate"     { return symbol(sym.CONCATENATE); }
     "substring"       { return symbol(sym.SUBSTRING); }
 
-    ":="              {return symbol(sym.ASSIGN); }
-    "="               { return symbol(sym.EQ); }
+    "="               {return symbol(sym.ASSIGN); }
+    "=="              { return symbol(sym.EQ); }
     "<"               { return symbol(sym.LT); }
     "<="              { return symbol(sym.LE); }
     ">"               { return symbol(sym.GT); }
